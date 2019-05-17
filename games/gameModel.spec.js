@@ -1,11 +1,11 @@
 const db = require('../data/dbConfig.js');
-const gamesDb = require('./gamesModel.js')
+const gamesDb = require('./gameModel.js')
 const server = require('../api/server.js')
 const req = require('supertest')
 
 
 
-describe('Games Model', () =>{
+describe('Game Model', () =>{
 
 
     describe('/POST insert()', () =>{
@@ -30,23 +30,13 @@ describe('Games Model', () =>{
 
         })
 
-        it('should bounce back the request if all fields are not filled with a status of 422', () => {
+        it("should return 422 when posting a game incorrectly", () => {
             return req(server)
-            .post('/games')
-            .send({
-                title: 'SuperNotPiratedGame.exe.trojan.leeetsors', 
-            })
-            .expect(422)
-        })
+              .post("/games")
+              .send({ title: "test" })
+              .expect(422);
+          })
 
-        it('should bounce back the request if all fields are not filled with a status of 422', () => {
-            return req(server)
-            .post('/games')
-            .send({
-                title: 'SuperNotPiratedGame.exe.trojan.leeetsors', 
-                genre:"Definitely not pirated"
-            })
-            .expect(422)
-        })
+        
     })
 })
